@@ -628,10 +628,18 @@ class deep_tools:
                 self.test_dirs.append(directory)
             print(" ")
             
-    def image_data_generator(self, mode='binary', image_size=200, batch_size=32, flip_Augment=True, rot_augment="90"):
+    def image_data_generator(self, mode='binary', image_size=200, batch_size=32, flip_Augment=True, rot_augment=90):
         """
         image_data_generator - Function to create ImageDataGenerators
                                 using keras to load the dataset
+        
+        Input :
+            - mode : Configuration keras data generator
+            - image_size : Size of the images to be loaded
+            - batch_size : Size of image packets to be done
+            - flip_Augment : Data Augmentation Flip vertical/horizontal 
+            - rot:augment : Data Augmentation rotation angle 
+
         Output :
             train_generator - Generator flow from train directory
             validate_generator - Generator flow from validate directory
@@ -639,11 +647,11 @@ class deep_tools:
         """
         # Rescale all images by 1./255 and apply image augmentation/reduction
         train_datagen = keras.preprocessing.image.ImageDataGenerator(
-                rescale=1./255)
+                rescale=1./255, horizontal_flip=flip_Augment, rotation_range=rot_augment)
         validation_datagen = keras.preprocessing.image.ImageDataGenerator(
-                rescale=1./255)
+                rescale=1./255, horizontal_flip=flip_Augment,rotation_range=rot_augment)
         test_datagen = keras.preprocessing.image.ImageDataGenerator(
-                rescale=1./255)
+                rescale=1./255, horizontal_flip=flip_Augment,rotation_range=rot_augment)
         
         ### Load the dataset in the generators
                     # Flow training images in batches of 20 using train_datagen generator
@@ -652,8 +660,7 @@ class deep_tools:
                         target_size=(image_size, image_size),
                         batch_size=batch_size,
                         # Since we use binary_crossentropy loss, we need binary labels
-                        class_mode=mode,
-                        horizontal_flip=flip_Augment,rotation_range=90)
+                        class_mode=mode)
         
         # Flow validation images in batches of 20 using test_datagen generator
         validation_generator = validation_datagen.flow_from_directory(
