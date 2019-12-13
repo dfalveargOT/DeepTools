@@ -628,7 +628,7 @@ class deep_tools:
                 self.test_dirs.append(directory)
             print(" ")
             
-    def image_data_generator(self, mode='binary', image_size=200, batch_size=32):
+    def image_data_generator(self, mode='binary', image_size=200, batch_size=32, flip_Augment=True, rot_augment="90"):
         """
         image_data_generator - Function to create ImageDataGenerators
                                 using keras to load the dataset
@@ -652,20 +652,23 @@ class deep_tools:
                         target_size=(image_size, image_size),
                         batch_size=batch_size,
                         # Since we use binary_crossentropy loss, we need binary labels
-                        class_mode=mode)
+                        class_mode=mode,
+                        horizontal_flip=flip_Augment,rotation_range=90)
         
         # Flow validation images in batches of 20 using test_datagen generator
         validation_generator = validation_datagen.flow_from_directory(
                         self.validation_dir, # Source directory for the validation images
                         target_size=(image_size, image_size),
                         batch_size=batch_size,
-                        class_mode=mode)
+                        class_mode=mode,
+                        rotation_range=rot_augment)
         
         test_generator = test_datagen.flow_from_directory(
                         self.test_dir, # Source directory for the validation images
                         target_size=(image_size, image_size),
                         batch_size=batch_size,
-                        class_mode=mode)
+                        class_mode=mode,
+                        horizontal_flip=flip_Augment, rotation_range=90)
         
         return train_generator, validation_generator, test_generator
         
