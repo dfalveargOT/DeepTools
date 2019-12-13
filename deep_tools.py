@@ -14,6 +14,7 @@ from tensorflow import keras
 from datetime import datetime
 import matplotlib.pyplot as plt
 from keras.callbacks import EarlyStopping
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.callbacks import ModelCheckpoint
 from sklearn.metrics import classification_report, confusion_matrix
@@ -646,12 +647,14 @@ class deep_tools:
             test_generator - Generator flow from test directory
         """
         # Rescale all images by 1./255 and apply image augmentation/reduction
-        train_datagen = keras.preprocessing.image.ImageDataGenerator(
+        train_datagen = ImageDataGenerator(
                 rescale=1./255, horizontal_flip=flip_Augment, rotation_range=rot_augment)
-        validation_datagen = keras.preprocessing.image.ImageDataGenerator(
+
+        validation_datagen = ImageDataGenerator(
                 rescale=1./255, horizontal_flip=flip_Augment,rotation_range=rot_augment)
-        test_datagen = keras.preprocessing.image.ImageDataGenerator(
-                rescale=1./255, horizontal_flip=flip_Augment,rotation_range=rot_augment)
+
+        test_datagen = ImageDataGenerator(
+                rescale=1./255, horizontal_flip=flip_Augment, rotation_range=rot_augment)
         
         ### Load the dataset in the generators
                     # Flow training images in batches of 20 using train_datagen generator
