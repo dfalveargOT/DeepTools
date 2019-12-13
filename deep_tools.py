@@ -128,7 +128,7 @@ class deep_tools:
         for layer in model.layers[layers_Freeze:]:
             layer.trainable = True
         #model.compile(optimizer=tf.keras.optimizers.SGD(lr=0.1, momentum=0.9), loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-        #model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+        model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
     def train_neural_network(self, model, epochs, 
                              train_generator, 
