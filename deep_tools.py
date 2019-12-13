@@ -667,15 +667,13 @@ class deep_tools:
                         self.validation_dir, # Source directory for the validation images
                         target_size=(image_size, image_size),
                         batch_size=batch_size,
-                        class_mode=mode,
-                        rotation_range=rot_augment)
+                        class_mode=mode)
         
         test_generator = test_datagen.flow_from_directory(
                         self.test_dir, # Source directory for the validation images
                         target_size=(image_size, image_size),
                         batch_size=batch_size,
-                        class_mode=mode,
-                        horizontal_flip=flip_Augment, rotation_range=90)
+                        class_mode=mode)
         
         return train_generator, validation_generator, test_generator
         
