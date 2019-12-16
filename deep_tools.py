@@ -166,9 +166,9 @@ class deep_tools:
                                       callbacks=callbacks)
         return history
     
-    def callbacks(self, checkpoint="MDefault.h5", monitor='val_loss', verbose=1,
+    def callbacks(self, checkpoint_name="MDefault.h5", monitor='val_loss', verbose=1,
                   mode_checkpoint='min', patience_earlyStop=35, baseline_ES=0.08,
-                  tensorboard=True):
+                  tensorboard=True, earlystop=True, checkpoint=True):
         
         """
         callbacks - Function for create callbacks checkpoint and earlystop
@@ -185,15 +185,24 @@ class deep_tools:
             - callback_list : return list of callback functions
         """
         
-        modelCheckpoint = ModelCheckpoint(checkpoint, monitor, mode_checkpoint, verbose, True)
+        modelCheckpoint = ModelCheckpoint(checkpoint_name, monitor, mode_checkpoint, verbose, True)
         earlyStop = EarlyStopping(monitor, verbose, patience=patience_earlyStop, baseline=baseline_ES)
         
         if tensorboard:
             logdir = "logs/scalars/" + datetime.now().strftime("%Y%m%d-%H%M%S")
             tensorboard_callback = keras.callbacks.TensorBoard(log_dir=logdir)
+
+        if checkpoint and earlystop==False and tensorboard==False:
+            callback_list = [modelCheckpoint]
+        elif earlyStop and checkpoint==False and tensorboard==False:
+            callback_list = [earlyStop]
+        elif earlyStop==False and checkpoint==False and tensorboard:
             callback_list = [tensorboard_callback]
-        else:
-            callback_list = [mode_checkpoint, earlyStop]
+        elif checkpoint and earlystop and tensorboard==False:
+            callback_list = [modelCheckpoint,earlyStop]
+        elif checkpoint and earlystop and tensorboard:
+            callback_list = [modelCheckpoint,earlyStop,tensorboard]
+
             
         
         return callback_list
