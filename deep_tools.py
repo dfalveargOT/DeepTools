@@ -166,7 +166,7 @@ class deep_tools:
                                       callbacks=callbacks)
         return history
     
-    def callbacks(self, checkpoint_name="MDefault.h5", monitor='val_loss', verbose=1,
+    def callbacks(self, checkpoint_name="MDefault.h5", path_save= './',monitor='val_loss', verbose=0,
                   mode_checkpoint='min', patience_earlyStop=35, baseline_ES=0.08,
                   tensorboard=True, earlystop=True, checkpoint=True):
         
@@ -187,9 +187,9 @@ class deep_tools:
         output :
             - callback_list : return list of callback functions
         """
-        
-        modelCheckpoint = ModelCheckpoint(checkpoint_name, monitor, mode_checkpoint, verbose, True)
-        earlyStop = EarlyStopping(monitor, verbose, patience=patience_earlyStop, baseline=baseline_ES)
+        checkpoint_path = os.path.join(path_save, checkpoint_name)
+        modelCheckpoint = ModelCheckpoint(filepath=checkpoint_path, monitor=monitor, mode=mode_checkpoint, verbose=verbose, save_best_only=True)
+        earlyStop = EarlyStopping(monitor=monitor, verbose=verbose, patience=patience_earlyStop, baseline=baseline_ES)
         
         if tensorboard:
             logdir = "logs/scalars/" + datetime.now().strftime("%Y%m%d-%H%M%S")
