@@ -180,6 +180,9 @@ class deep_tools:
             - mode_checkpoint : Type checkpoint configuration default 'min'
             - patience_earlyStop : Number of epochs to leave pass
             - baseline_ES : basline difference to stop the training early stop
+            - tensorboard : Flag to forward the tensorboard callback
+            - earlystop : Flag to forward the earlystop callback
+            - checkpoint : Flag to forward the checkpoint callback
                 
         output :
             - callback_list : return list of callback functions
