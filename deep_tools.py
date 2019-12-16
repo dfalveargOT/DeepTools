@@ -32,7 +32,7 @@ class deep_tools:
         self.train_dir = []
         self.validation_dir = []
         self.test_dir = []
-        self.model_path = './Model'
+        self.model_path = 'Model'
         flag = os.path.isdir(base_path)
         if flag== False:
             print("Path given is not a folder")
@@ -193,12 +193,12 @@ class deep_tools:
             tensorboard_callback = keras.callbacks.TensorBoard(log_dir=logdir)
             callback_list = [tensorboard_callback]
         else:
-            callback_list = []
+            callback_list = [mode_checkpoint, earlyStop]
             
         
         return callback_list
     
-    def model_save(self,model,name, weights=False):
+    def model_save(self,model, name, weights=False, path_save='./'):
         """
         model_save - Function to perform the save of trained model
         
@@ -210,19 +210,20 @@ class deep_tools:
         Output :
             - model saved in the dir ./Model
         """
-        files = os.listdir("./")
+        files = os.listdir(path_save)
         flag = False
+        path = os.path.join(path_save, self.model_path)
         for file in files:
-            if file=='Model':
+            if file==self.model_path:
                 flag = True
                 break
         if flag == False:
-            os.mkdir(self.model_path)
+            os.mkdir(path)
             print("Creating the path to save the model")
         # Flag to control the weights save
         if weights:
-            model.save_weights("./"+ self.model_path + "Weights" +name)
-        model.save("./"+ self.model_path + name)
+            model.save_weights(path + "Weights" + name)
+        model.save(path + name)
         print("model save function procedure completed")
 
     def save_model_json(self, model, name_model):
