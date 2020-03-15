@@ -70,7 +70,7 @@ class deep_tools:
         
         """
         
-        base_model = tf.keras.applications.DenseNet201(input_shape=img_shape, weights='imagenet', include_top=False)
+        base_model = tf.keras.applications.DenseNet201(input_shape=img_shape, weights='imagenet', include_top=False, optim=tf.keras.optimizers.Adam())
         base_model.trainable = False
       
         ####### Start the modification of the top layers
@@ -90,7 +90,7 @@ class deep_tools:
         
         ## Compilation
         if compilation:
-            model.compile(optimizer=tf.keras.optimizers.Adam(),
+            model.compile(optimizer=optim,
                         loss=loss,
                         metrics=metrics)
         
