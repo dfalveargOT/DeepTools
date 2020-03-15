@@ -295,7 +295,7 @@ class deep_tools:
         plt.title('Training and Validation Loss')
         plt.show()
         
-    def test_analysis(self, model, test_generator, classes):
+    def test_analysis(self, model, test_generator, classes, class_names):
         """
         test_analysis - Function to carry out a performance analysis of the network
         
@@ -317,8 +317,8 @@ class deep_tools:
         print('Confusion Matrix')
         print(confusion_matrix(test_generator.classes, y_pred))
         print('Classification Report')
-        target_names = ['Piña', 'Suelo']
-        print(classification_report(test_generator.classes, y_pred, target_names=target_names))
+        #class_names = ['Piña', 'Suelo']
+        print(classification_report(test_generator.classes, y_pred, target_names=class_names))
 
         return results
 

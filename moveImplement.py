@@ -7,7 +7,7 @@ Created on Fri Jul 19 15:26:38 2019
 """
 
 import MoveData
-classes = ["c1/","c2/"]
+classes = ["Clase1/","Clase2/","Clase3/"]
 paths = ["./Dataset/training/", "./Dataset/validate/", "./Dataset/test/"]
 
 movedata = MoveData.Move_Data(paths, classes)

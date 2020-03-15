@@ -40,5 +40,5 @@ dep_tools.test_graph(model, image_size, dep_tools.test_dir, thresh, 200)
 #dep_tools.graph2D(resultsPrediction)
 
 # Evaluation the model in the test o validation dataset
-#dep_tools.evaluate_list(model, dep_tools.validation_dir, 2, 5,image_size)
+dep_tools.evaluate_list(model=model, folder=dep_tools.validation_dir, classes= 2, num_events=5, imageSize=image_size)
 
