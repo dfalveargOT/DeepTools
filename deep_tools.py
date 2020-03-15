@@ -49,7 +49,8 @@ class deep_tools:
                    loss='sparse_categorical_crossentropy', 
                    metrics=['accuracy'],
                    verbose = False,
-                   compilation = False):
+                   compilation = False,
+                   optim=tf.keras.optimizers.Adam()):
     
         """
         model_creation - Function to load neural network for transfer learning 
@@ -70,7 +71,7 @@ class deep_tools:
         
         """
         
-        base_model = tf.keras.applications.DenseNet201(input_shape=img_shape, weights='imagenet', include_top=False, optim=tf.keras.optimizers.Adam())
+        base_model = tf.keras.applications.DenseNet201(input_shape=img_shape, weights='imagenet', include_top=False)
         base_model.trainable = False
       
         ####### Start the modification of the top layers
