@@ -103,7 +103,7 @@ class deep_tools:
         return model, base_model
     
 
-    def setup_to_transfer_learn(self, model, base_model):
+    def setup_to_transfer_learn(self, model, base_model, optim=tf.keras.optimizers.Adam()):
         """
         setup_to_transfer_learn - Function to configure transfer learning
 
@@ -115,10 +115,10 @@ class deep_tools:
         """Freeze all layers and compile the model"""
         for layer in base_model.layers:
             layer.trainable = False
-        model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+        model.compile(optimizer=optim, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
     
 
-    def setup_to_finetune(self, model, layers_Freeze):
+    def setup_to_finetune(self, model, layers_Freeze, optim=tf.keras.optimizers.Adam()):
         """Freeze the bottom NB_IV3_LAYERS and retrain the remaining top layers.
         note: NB_IV3_LAYERS corresponds to the top 2 inception blocks in the inceptionv3 arch
         Args:
@@ -129,7 +129,7 @@ class deep_tools:
         for layer in model.layers[layers_Freeze:]:
             layer.trainable = True
         #model.compile(optimizer=tf.keras.optimizers.SGD(lr=0.1, momentum=0.9), loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-        model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+        model.compile(optimizer=optim, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
     def train_neural_network(self, model, epochs, 
                              train_generator, 
