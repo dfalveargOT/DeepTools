@@ -71,7 +71,7 @@ class deep_tools:
         
         """
         
-        base_model = tf.keras.applications.MobileNet(input_shape=img_shape, weights='imagenet', include_top=False)
+        base_model = tf.keras.applications.ResNet50(input_shape=img_shape, weights='imagenet', include_top=False)
         base_model.trainable = False
       
         ####### Start the modification of the top layers
