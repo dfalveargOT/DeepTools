@@ -39,7 +39,7 @@ class deep_tools:
         self.font = {'family': 'serif',
                     'color':  'white',
                     'weight': 'normal',
-                    'size': 10}
+                    'size': 11}
         # Config GPU for use
         config = tf.ConfigProto()
         config.gpu_options.allow_growth = True
