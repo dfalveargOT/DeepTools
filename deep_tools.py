@@ -508,8 +508,15 @@ class deep_tools:
         """
         results_prediction = []
         # Get prediction information format
+    
         for predict in predictions:
-            tittle = ("Planta: "+ str(round(predict[0][0],3)) + "  No_Planta : " + str(round(predict[0][1],3)))#+ "  No_Planta2 : " + str(round(predict[0][2],3)))
+            counter = 0
+            title = ""
+            for class_id in self.classes:
+                item = class_id + ": " + str(round(predict[0][counter],3))
+                title += item
+                counter += 1
+            #tittle = ("Planta: "+ str(round(predict[0][0],3)) + "  No_Planta : " + str(round(predict[0][1],3)))#+ "  No_Planta2 : " + str(round(predict[0][2],3)))
             results_prediction.append(tittle)
         # Graph the results
         fig, axes = plt.subplots(nrows=1, ncols=2)
