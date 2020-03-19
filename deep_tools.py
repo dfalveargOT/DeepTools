@@ -511,10 +511,10 @@ class deep_tools:
     
         for predict in predictions:
             counter = 0
-            title = ""
+            tittle = ""
             for class_id in self.classes:
                 item = class_id + ": " + str(round(predict[0][counter],3))
-                title += item
+                tittle += item
                 counter += 1
             #tittle = ("Planta: "+ str(round(predict[0][0],3)) + "  No_Planta : " + str(round(predict[0][1],3)))#+ "  No_Planta2 : " + str(round(predict[0][2],3)))
             results_prediction.append(tittle)
