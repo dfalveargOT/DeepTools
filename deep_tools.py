@@ -513,7 +513,7 @@ class deep_tools:
             counter = 0
             tittle = ""
             for class_id in self.classes:
-                item = class_id + ": " + str(round(predict[0][counter],3))
+                item = class_id + ": " + str(round(predict[0][counter],3)) + " "
                 tittle += item
                 counter += 1
             #tittle = ("Planta: "+ str(round(predict[0][0],3)) + "  No_Planta : " + str(round(predict[0][1],3)))#+ "  No_Planta2 : " + str(round(predict[0][2],3)))
