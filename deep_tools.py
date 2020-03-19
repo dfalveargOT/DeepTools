@@ -37,7 +37,7 @@ class deep_tools:
         if flag== False:
             print("Path given is not a folder")
         self.font = {'family': 'serif',
-                    'color':  'black',
+                    'color':  'white',
                     'weight': 'normal',
                     'size': 10}
         # Config GPU for use
